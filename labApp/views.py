@@ -29,9 +29,10 @@ class ProdactsView(ListView):
 
     paginate_by = 3
 
+    # ####context['customer'] = models.Customer.objects.get(username=self.request.user)
     def get_context_data(self, **kwargs):
         context = super(ProdactsView, self).get_context_data(**kwargs)
-        #context['customer'] = models.Customer.objects.get(username=self.request.user)
+
         context['customer'] = auth.get_user(self.request).username
         return context
 
@@ -89,9 +90,9 @@ def prodact_page(request, prodact):
             context['category'] = None
     except:
         context['prodact'] = None
+    context['cust'] = auth.get_user(request).username
+    context['customer'] = models.Customer.objects.get(user=request.user)
 
-    #context['customer'] = models.Customer.objects.get(user=request.user)
-    context['customer'] = auth.get_user(request).username
     return render(request, 'prodact_page.html', context)
 
 
@@ -111,6 +112,7 @@ def order(request, prodact):
             ord.user = cust
             ord.prodact = models.Prodact.objects.get(name=data['prodact'])
             ord.date = datetime.datetime.today()
+            #ord.number = models.Prodact.objects.get(name=data['prodact'])
             ord.save()
             return HttpResponseRedirect('/')
     else:

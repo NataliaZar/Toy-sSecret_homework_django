@@ -12,7 +12,7 @@
                 {% for prodact in prodacts_list %}
                     <li>
                         <div>
-                            <img src="{{ prodact.img.url }}" style="max-width: 200px;">
+                            <img src="{{ prodact.img.url }}" style="max-width: 100px;">
                         </div>
                         <div>
                             <h4><a href= "{% url 'prodact_page'  prodact.prodact_name %}"> {{ prodact.prodact_name }}</a></h4>

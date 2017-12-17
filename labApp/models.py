@@ -5,20 +5,23 @@ from django.utils.timezone import now
 
 
 class Customer(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Покупатель'),
-    #customer_name = models.CharField(max_length=30)
-    #email = models.EmailField(max_length=75)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Покупатель')
+
     first_name = models.CharField(max_length=30, verbose_name='Имя')
     last_name = models.CharField(max_length=30, verbose_name='Фамилия')
     birthday = models.DateField(verbose_name='День рождения')
     sex = models.CharField(max_length=1, verbose_name='Пол')
-    img = models.ImageField(upload_to='user/', blank=True, default='user_icon.png',
+    img = models.ImageField(upload_to='user/', blank=True, default='user/user_icon.png',
                             verbose_name='Фотография')
 
     objects = models.Manager()
 
+    #def __str__(self):
+     #   return "{}".format(self.user)
+
     def __str__(self):
-        return "{}".format(self.user)
+        return "{}".format(self.user.username)
+
 
 
 class ProdactCategory(models.Model):
@@ -40,7 +43,7 @@ class Prodact(models.Model):
     price = models.FloatField(max_length=10, verbose_name='Цена')
     #order = models.ManyToManyField(Customer, on_delete=models.CASCADE, through='Order', verbose_name='заказ')
     img = models.ImageField(upload_to='prodact/', blank=True,
-                            default='prodact_icon.png', verbose_name='Фотография')
+                            default='prodact/prodact_icon.png', verbose_name='Фотография')
     category = models.ManyToManyField(ProdactCategory, blank=True, verbose_name='Категория товара')
 
     objects = ProdactManager()

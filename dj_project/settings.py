@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'dj_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'lab_db',
+        'NAME': 'dj_db',
         'USER': 'dbuser',
         'PASSWORD': '123',
         'HOST': 'localhost',
@@ -121,12 +121,18 @@ USE_L10N = True
 
 USE_TZ = True
 
+MY_APPS = ['dj_project']
+INSTALLED_APPS += MY_APPS
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
 #STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-MEDIA_URL = '/img/'
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'img')
+MEDIA_URL = '/img/'

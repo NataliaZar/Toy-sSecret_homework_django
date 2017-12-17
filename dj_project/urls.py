@@ -35,7 +35,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls))
 ]
 ajax_functions = [
-    url(r'^ajax/book/', ajax_order, name='ajax_book'),
+    url(r'^ajax/order/', ajax_order, name='ajax_order'),
     #url(r'^ajax/last_bookings/', ajax_last_bookings, name='ajax_last_bookings'),
 ]
 urlpatterns += ajax_functions
