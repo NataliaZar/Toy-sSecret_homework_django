@@ -29,9 +29,10 @@
             <div><h4>Описание:</h4> {{ prodact.description }}</div>
             <div><h4>Цена:</h4> {{ prodact.price }}</div>
 
-            <div><a href="#" class="btn btn-primary btn_modal_order" style="margin-top: 10px;">Заказать</a>
+            <button class="btn btn-primary btn_modal_order" data-toggle="modal" data-target="#modalOrder">Заказ</button>
+            <!--<div><a href="#" class="btn btn-primary btn_modal_order" style="margin-top: 10px;">Заказать</a></div>-->
             <!-- HTML-код модального окна -->
-            <div id="modalOrdering" class="modal fade" >
+            <div id="modalOrder" class="modal fade">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <!-- Заголовок модального окна -->
@@ -42,7 +43,7 @@
                         <!-- Основное содержимое модального окна -->
                         <div class="modal-body">
                             <form id="order_form" method="POST" class="form-horizontal" enctype="multipart/form-data" >
-                                <div id="date_errors" class="alert alert-danger" role="alert" hidden="True"></div>
+
                                 {% for field in order_form %}
                                 <div class="form-group">
                                     <label for="{{ field.id_for_label }}" class="col-sm-3 control-label">{{ field.label }}:</label>
@@ -62,7 +63,7 @@
                     </div>
                 </div>
             </div>
-            </div>
+
 
 
 
@@ -77,8 +78,12 @@
 {% endblock %}
 
 {% block side_block %}
-<h2>Пользователь:</h2>
-<div class="side-panel-elem">
-    {% include "customer.html" %}
-</div>
+    <h2>Пользователь:</h2>
+    {% if isAuth %}
+        <div class="side-panel-elem">
+            {% include "customer.html" %}
+        </div>
+    {%  else %}
+        <p>Вы не авторизованы или не зарегистрированы.</p>
+    {% endif %}
 {% endblock %}

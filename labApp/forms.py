@@ -19,3 +19,13 @@ class OrderForm(forms.Form):
     order_date = forms.DateTimeField(widget=forms.SelectDateWidget(), label='Дата заказа')
     number = forms.IntegerField(disabled=True, label='Количество')
 
+
+class ProdactAddForm(forms.ModelForm):
+    prodact_name = forms.CharField(min_length=5, max_length=30, label='Наименование')
+    description = forms.CharField(min_length=1, max_length=255, label='Описание')
+    price = forms.FloatField(label='Цена')
+    img = forms.FileField(label='Изображение', required=False)
+
+    class Meta:
+        model = models.Prodact
+        fields = ('prodact_name', 'description', 'price', 'img', 'category')

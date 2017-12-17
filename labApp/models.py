@@ -12,7 +12,7 @@ class Customer(models.Model):
     birthday = models.DateField(verbose_name='День рождения')
     sex = models.CharField(max_length=1, verbose_name='Пол')
     img = models.ImageField(upload_to='user/', blank=True, default='user/user_icon.png',
-                            verbose_name='Фотография')
+                          verbose_name='Фотография')
 
     objects = models.Manager()
 
@@ -41,9 +41,8 @@ class Prodact(models.Model):
     prodact_name = models.CharField(max_length=30, verbose_name='Наименование товара')
     description = models.CharField(max_length=255, null=True, verbose_name='Описание')
     price = models.FloatField(max_length=10, verbose_name='Цена')
-    #order = models.ManyToManyField(Customer, on_delete=models.CASCADE, through='Order', verbose_name='заказ')
     img = models.ImageField(upload_to='prodact/', blank=True,
-                            default='prodact/prodact_icon.png', verbose_name='Фотография')
+                           default='prodact/prodact_icon.png', verbose_name='Фотография')
     category = models.ManyToManyField(ProdactCategory, blank=True, verbose_name='Категория товара')
 
     objects = ProdactManager()

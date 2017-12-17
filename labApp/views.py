@@ -27,13 +27,15 @@ class ProdactsView(ListView):
     template_name = 'prodact_list.html'
     context_object_name = 'prodacts_list'
 
-    paginate_by = 3
+    paginate_by = 10
 
-    # ####context['customer'] = models.Customer.objects.get(username=self.request.user)
+    # ####context['customer'] = auth.get_user(self.request).username
     def get_context_data(self, **kwargs):
         context = super(ProdactsView, self).get_context_data(**kwargs)
-
-        context['customer'] = auth.get_user(self.request).username
+        context['isAuth'] = auth.get_user(self.request).username
+        if context['isAuth'] !='':
+            context['customer'] = models.Customer.objects.get(user=self.request.user)
+        #context['cust'] = models.Customer.objects.get(user1=self.request.user)
         return context
 
     def get_queryset(self):
@@ -90,8 +92,10 @@ def prodact_page(request, prodact):
             context['category'] = None
     except:
         context['prodact'] = None
-    context['cust'] = auth.get_user(request).username
-    context['customer'] = models.Customer.objects.get(user=request.user)
+    context['isAuth'] = auth.get_user(request).username
+
+    if context['isAuth'] !='':
+        context['customer'] = models.Customer.objects.get(user=request.user)
 
     return render(request, 'prodact_page.html', context)
 
@@ -121,8 +125,27 @@ def order(request, prodact):
     return render(request, 'order.html', {'form': form, 'customer': cust})
 
 
+def prodact_add(request):
+    if request.method == 'POST':
+        form = ProdactAddForm(request.POST, request.FILES)
+        is_val = form.is_valid()
+        print('validation: {}'.format(is_val))
+        if is_val:
+            data = form.cleaned_data
+            if data['price']<=0:
+                form.add_error('price', ['Цена должна быть больше нуля.'])
+                is_val = False
+        if is_val:
+            prodact = form.save(commit=False)
+            prodact.save()
+            form.save_m2m()
+            return HttpResponseRedirect('/prodact_list')
+    else:
+        form = ProdactAddForm()
 
-# --------- представления для веб-форм------------
+    return render(request, 'prodact_add.html', {'form': form})
+
+# --------- регистрация и авторизация ------------
 
 # регистрация вручную
 def registration_form(request):
@@ -308,10 +331,12 @@ def logout_view(request):
     return HttpResponseRedirect('/')
 
 
+#----ajax-----
+#
 def ajax_order(request):
     if request.method == "POST":
         prodact = models.Prodact.objects.get(name=request.POST['prodact_name'])
-        customer = models.Customeler.objects.get(user=models.User.objects.get(email=request.POST['customer_email']))
+        customer = models.Customer.objects.get(user=models.User.objects.get(email=request.POST['customer_email']))
         date = datetime.date(int(request.POST['date']))
         number = int(request.POST['number'])
 

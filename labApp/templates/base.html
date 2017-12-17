@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+
+
 </head>
 <body>
     <nav class="navbar navbar-default navbar-static-top">
@@ -32,6 +34,7 @@
                     <a role="button" class="btn btn-default" href="{% url 'authorization_form' %}">Войти(вручную)</a>
                     <a role="button" class="btn btn-default" href="{% url 'registration_form' %}">Зарегестрироваться(вручную)</a>
                     <a role="button" class="btn btn-default" href="{% url 'registration' %}">Зарегестрироваться</a>
+                    <a role="button" class="btn btn-default" href="{% url 'prodact_add' %}">Добавить товар</a>
                 {% endif %}
             </form>
             <div>
@@ -47,16 +50,23 @@
 
         {% endblock %}
     </div>
+    <div>
+        {% if user.isauthenticated %}
+            <h2>User</h2>
+        {% endif %}
+    </div>
 <!-- Placed at the end of the document so the pages load faster -->
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="/js/vendor/jquery.min.js"><\/script>')</script>
+
+
+    <script src="http://code.jquery.com/jquery-1.12.4.js"></script>
     {% load staticfiles %}
-    <script type="text/javascript" src="{% static 'js\jquery.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js\bootstrap.min.js' %}"></script>
+
     <script type="text/javascript" src="{% static 'js\script.js' %}"></script>
 
 </body>
-<!--<script>$('.dropdown-toggle').dropdown()</script>-->
+
 
 </html>

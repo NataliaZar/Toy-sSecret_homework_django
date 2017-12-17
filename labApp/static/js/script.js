@@ -15,6 +15,7 @@ $(document).ready(function(){
 */
     //при нажатию на любую кнопку, имеющую класс .btn_modal_order (открытие модального окна "заказать")
     $(".btn_modal_order").click(function() {
+        console.log('жмяк btn_modal_order');
         //открыть модальное окно с id="modalOrder"
         $("#modalOrdering").modal('show');
         $("#id_user").val($('#customer_name').text());
@@ -24,15 +25,16 @@ $(document).ready(function(){
 
     //нажатие на кнопку "заказать"
     $('#btn_order').click(function() {
-        if(isNaN(Number($('#id_number').val())) || (Number($('#id_number').val()))<=0){ //Если оличество таваров - не число или меньше нуля => ошибка
-            return;
-        }
+        console.log('жмяк btn_order');
+        //if(isNaN(Number($('#id_number').val())) || (Number($('#id_number').val()))<=0){ //Если оличество таваров - не число или меньше нуля => ошибка
+            //return;
+        //}
 
         var csrf_value = document.getElementsByName("csrfmiddlewaretoken")[0].getAttribute("value");
         console.log(csrf_value)
         $.ajax({
             type: "POST",
-            url: '/hw/ajax/book/', //!!!
+            url: '/hw/ajax/order/', //!!!
             data: {
                 'prodact_name': $("#id_prodact").val(),
                 'user_email': $("#customer_email").text(),

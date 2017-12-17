@@ -6,7 +6,7 @@ from .models import *
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
     #fields = ('first_name', 'last_name')
-    list_display = ('username', 'full_name', 'birthday', 'count_of_orders',)
+    list_display = ('username', 'full_name', 'birthday', 'count_of_orders', 'img',)
     list_filter = ('sex',)
     search_fields = ['last_name', 'first_name']
 
@@ -24,7 +24,7 @@ class CustomerAdmin(admin.ModelAdmin):
 @admin.register(Prodact)
 class ProdactAdmin(admin.ModelAdmin):
     empty_value_display = '-empty-'
-    list_display = ('prodact','price','description',)
+    list_display = ('prodact','price','description', 'img',)
     list_filter = ('price',)
     search_fields = ['prodact_name']
 

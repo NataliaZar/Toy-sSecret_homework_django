@@ -34,8 +34,12 @@
     </div>
 {% endblock %}
 {% block side_block %}
-<h2>Пользователь:</h2>
-<div class="side-panel-elem">
-    {% include "customer.html" %}
-</div>
+    <h2>Пользователь:</h2>
+    {% if isAuth %}
+        <div class="side-panel-elem">
+            {% include "customer.html" %}
+        </div>
+    {%  else %}
+        <p>Вы не авторизованы или не зарегистрированы.</p>
+    {% endif %}
 {% endblock %}
