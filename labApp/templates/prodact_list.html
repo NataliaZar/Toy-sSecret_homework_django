@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Товары{% endblock %}
+
+{% block content %}
+    <div class="jumbotron">
+        <div class="container">
+            <div class="page-header">
+                <h1>Товары</h1>
+            </div>
+            <ul class="list-group">
+                {% for prodact in prodacts_list %}
+                    <li>
+                        <div>
+                            <img src="{{ prodact.img.url }}" style="max-width: 200px;">
+                        </div>
+                        <div>
+                            <h4><a href= "{% url 'prodact_page'  prodact.prodact_name %}"> {{ prodact.prodact_name }}</a></h4>
+                        </div>
+                    </li>
+                {% empty %}
+                    <li>пустой список</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div>
+            <a href="#" class="btn btn-primary btn_modal_order" style="margin-top: 10px;">Заказать</a>
+                <!--кнопка добавления товара-->
+
+
+
+        </div>
+    </div>
+{% endblock %}
+{% block side_block %}
+<h2>Пользователь:</h2>
+<div class="side-panel-elem">
+    {% include "customer.html" %}
+</div>
+{% endblock %}

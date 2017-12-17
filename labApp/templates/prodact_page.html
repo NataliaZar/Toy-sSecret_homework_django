@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}Товар № {{ prodact.price }}{% endblock %}
+
+{% block content %}
+    <div>
+        <p>Страница товара № {{ prodact.price }}</p>
+    </div>
+
+{% csrf_token %}
+<h2 id="prodact_name">{{ prodact.prodact_name }}</h2>
+<div class="main-panel-elem">
+
+    <div class="row">
+        <div class="col-md-4" style="text-align: center;">
+            {% load static  %}
+            <img src="{{ prodact.img.url }}" style="max-width: 200px;">
+        </div>
+        <div class="col-md-8">
+            <div style=""><h4>Наименование:</h4>{{ prodact.prodact_name }}</div>
+            {% if category is not None %}
+                <div style=""><h4>Категории:</h4></div>
+                {% for cat in category %}
+                <span class="label label-default" style="margin-right:5px;">
+                    {{ cat }}
+                </span>
+                {% endfor %}
+            {% endif %}
+            <div><h4>Описание:</h4> {{ prodact.description }}</div>
+            <div><h4>Цена:</h4> {{ prodact.price }}</div>
+
+            <div><a href="#" class="btn btn-primary btn_modal_order" style="margin-top: 10px;">Заказать</a>
+            <!-- HTML-код модального окна -->
+            <div id="modalOrdering" class="modal fade" >
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- Заголовок модального окна -->
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title">Заказ товара</h4>
+                        </div>
+                        <!-- Основное содержимое модального окна -->
+                        <div class="modal-body">
+                            <form id="order_form" method="POST" class="form-horizontal" enctype="multipart/form-data" >
+                                <div id="date_errors" class="alert alert-danger" role="alert" hidden="True"></div>
+                                {% for field in order_form %}
+                                <div class="form-group">
+                                    <label for="{{ field.id_for_label }}" class="col-sm-3 control-label">{{ field.label }}:</label>
+                                    <div class="col-sm-9">
+                                        {{ field }}
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                <div id="success_order" class="alert alert-success" role="alert" hidden="True"></div>
+                            </form>
+                        </div>
+                        <!-- Футер модального окна -->
+                        <div class="modal-footer">
+                            <button id="btn_close" type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                            <button id="btn_order"  type="button" class="btn btn-primary">Забронировать</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+</div>
+
+
+
+
+{% endblock %}
+
+{% block side_block %}
+    {% include "customer.html" %}
+{% endblock %}

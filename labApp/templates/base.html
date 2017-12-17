@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">Главная</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="/prodact_list">Товары</a>
+                    </li>
+                </ul>
+            </div>
+
+            <form>
+                {% if user.is_authenticated %}
+                <span>
+                  <button type="button" class="btn btn-default">
+                    {{ user.username }}
+                  </button>
+                  <a role="button" class="btn btn-default" href="{% url 'logout' %}">Выйти</a>
+                </span>
+                {% else %}
+                    <a role="button" class="btn btn-default" href="{% url 'authorization' %}">Войти</a>
+                    <a role="button" class="btn btn-default" href="{% url 'authorization_form' %}">Войти(вручную)</a>
+                    <a role="button" class="btn btn-default" href="{% url 'registration_form' %}">Зарегестрироваться(вручную)</a>
+                    <a role="button" class="btn btn-default" href="{% url 'registration' %}">Зарегестрироваться</a>
+                {% endif %}
+            </form>
+            <div>
+                {% block content %}
+
+                {% endblock %}
+            </div>
+        </div>
+    </nav>
+
+    <div id="side-panel" class="col-sm-3 panels">
+        {% block side_block %}
+
+        {% endblock %}
+    </div>
+<!-- Placed at the end of the document so the pages load faster -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="/js/vendor/jquery.min.js"><\/script>')</script>
+    {% load staticfiles %}
+    <script type="text/javascript" src="{% static 'js\jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js\bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js\script.js' %}"></script>
+
+</body>
+<!--<script>$('.dropdown-toggle').dropdown()</script>-->
+
+</html>
