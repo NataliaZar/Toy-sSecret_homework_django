@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Заказы{% endblock %}
+{% block content %}
+<h2>Ваши заказы</h2>
+{% for order in order_list %}
+    <div class="main-panel-elem">
+        <div class="row">
+            <div class="col-md-2">
+                {% load static  %}
+                <img style="width:100px; height:100px;" src="{{ order.prodact.img.url }}">
+            </div>
+            <div class="col-md-10">
+                <h3><a href="{% url 'prodact_page' order.prodact.prodact_name %}">{{ order.prodact.prodact_name }}</a></h3>
+                <div>Количество: {{ order.number }}</div>
+                <div>{{ order.order_date }}</div>
+            </div>
+        </div>
+    </div>
+{% empty %}
+<div class="main-panel-elem">
+    На данный момент у вас нет заказов.
+</div>
+{% endfor %}
+<!--paginator-->
+{% endblock %}
+
+{% block side_block %}
+    <h2>Пользователь:</h2>
+    {% if isAuth %}
+        <div class="side-panel-elem">
+            {% include "customer.html" %}
+        </div>
+    {%  else %}
+        <p>Вы не авторизованы или не зарегистрированы.</p>
+    {% endif %}
+    <!--<div class="side-panel-elem">-->
+    <div><a class="btn btn-primary" href="{% url 'prodact_list' %}" role="button">Заказать товар</a></div>
+    <!--</div>-->
+{% endblock %}

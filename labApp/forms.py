@@ -16,8 +16,8 @@ class ProdactForm(forms.Form):
 class OrderForm(forms.Form):
     user = forms.CharField(disabled='True', label='Покупатель')
     prodact = forms.CharField(disabled='True', label='Продукт')
-    order_date = forms.DateTimeField(widget=forms.SelectDateWidget(), label='Дата заказа')
-    number = forms.IntegerField(disabled=True, label='Количество')
+    order_date = forms.DateTimeField(disabled='True', label='Дата заказа')
+    number = forms.IntegerField(label='Количество')
 
 
 class ProdactAddForm(forms.ModelForm):

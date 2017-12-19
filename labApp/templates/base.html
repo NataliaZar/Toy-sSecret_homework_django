@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="/static/css/mycss.css">
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
 
 
@@ -18,6 +20,9 @@
                     <li>
                         <a href="/prodact_list">Товары</a>
                     </li>
+                    <li>
+                        <a href="/order_list">Заказы</a>
+                    </li>
                 </ul>
             </div>
 
@@ -28,23 +33,22 @@
                     {{ user.username }}
                   </button>
                   <a role="button" class="btn btn-default" href="{% url 'logout' %}">Выйти</a>
+                  <a role="button" class="btn btn-default" href="{% url 'order_list' %}">Заказы</a>
                 </span>
                 {% else %}
                     <a role="button" class="btn btn-default" href="{% url 'authorization' %}">Войти</a>
-                    <a role="button" class="btn btn-default" href="{% url 'authorization_form' %}">Войти(вручную)</a>
-                    <a role="button" class="btn btn-default" href="{% url 'registration_form' %}">Зарегестрироваться(вручную)</a>
                     <a role="button" class="btn btn-default" href="{% url 'registration' %}">Зарегестрироваться</a>
-                    <a role="button" class="btn btn-default" href="{% url 'prodact_add' %}">Добавить товар</a>
-                {% endif %}
-            </form>
-            <div>
-                {% block content %}
 
-                {% endblock %}
-            </div>
+                {% endif %}
+                <a role="button" class="btn btn-default" href="{% url 'prodact_add' %}">Добавить товар</a>
+            </form>
         </div>
     </nav>
+    <div>
+        {% block content %}
 
+        {% endblock %}
+    </div>
     <div id="side-panel" class="col-sm-3 panels">
         {% block side_block %}
 

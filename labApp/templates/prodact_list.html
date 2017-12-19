@@ -12,10 +12,15 @@
                 {% for prodact in prodacts_list %}
                     <li>
                         <div>
+                            {% load static  %}
                             <img src="{{ prodact.img.url }}" style="max-width: 100px;">
                         </div>
                         <div>
                             <h4><a href= "{% url 'prodact_page'  prodact.prodact_name %}"> {{ prodact.prodact_name }}</a></h4>
+                        </div>
+                        <div>
+                            {% load static  %}
+                            <a class="btn btn-primary" href="{% url 'order_add' prodact.prodact_name %}" role="button">Заказать</a>
                         </div>
                     </li>
                 {% empty %}
@@ -25,10 +30,6 @@
         </div>
 
         <div>
-            <a href="#" class="btn btn-primary btn_modal_order" style="margin-top: 10px;">Заказать</a>
-                <!--кнопка добавления товара-->
-
-
 
         </div>
     </div>

@@ -10,6 +10,7 @@ from django.utils.decorators import method_decorator
 import datetime
 import logging
 from django.contrib import auth
+from django.utils import timezone
 
 logger = logging.getLogger('views')
 
@@ -46,28 +47,32 @@ class ProdactsView(ListView):
                     q.description = q.description[:50]+'...'
         return qs
 
-    #@method_decorator(login_required(login_url='authorization'))
-   # def dispatch(self, request, *args, **kwargs):
-     #   return super(ProdactsView, self).dispatch(request, *args, **kwargs)
+    @method_decorator(login_required(login_url='authorization'))
+    def dispatch(self, request, *args, **kwargs):
+        return super(ProdactsView, self).dispatch(request, *args, **kwargs)
 
 # список заказов
 class OrderView(ListView):
     model = Order
     template_name = 'order_list.html'
-    paginate_by = 3
+    context_object_name = 'order_list'
+    paginate_by = 10
 
     def get_context_data(self, **kwargs):
         context = super(OrderView, self).get_context_data(**kwargs)
-        #context['customer'] = models.Customer.objects.get(user=self.request.user)
-        context['customer'] = auth.get_user(self.request).username
+
+        context['isAuth'] = auth.get_user(self.request).username
+        if context['isAuth'] != '':
+            context['customer'] = models.Customer.objects.get(user=self.request.user)
         return context
 
 
     def get_queryset(self):
         try:
-            #cust = models.Customer.objects.get(user=self.request.user)
+
             cust = models.Customer.objects.get(user=self.request.user)
             qs = models.Order.objects.filter(user=cust)
+            #cust1 = models.Customer.objects.get(user1=self.request.user)
         except:
             qs = None
         if qs is not None:
@@ -75,9 +80,9 @@ class OrderView(ListView):
         return qs
 
 
-   # @method_decorator(login_required(login_url='authorization'))
-    #def dispatch(self, request, *args, **kwargs):
-     #   return super(OrderView, self).dispatch(request, *args, **kwargs)
+    @method_decorator(login_required(login_url='authorization'))
+    def dispatch(self, request, *args, **kwargs):
+       return super(OrderView, self).dispatch(request, *args, **kwargs)
 
 
 # страница товара
@@ -102,27 +107,37 @@ def prodact_page(request, prodact):
 
 # заказ товара
 @login_required(login_url='authorization')
-def order(request, prodact):
+def order_add(request, prodact):
     cust = models.Customer.objects.get(user=request.user)
-    inits = {'customer': '{} {}'.format(cust.last_name, cust.first_name),
-             'prodact': prodact}
-
+    inits = {'user': '{} {}'.format(cust.last_name, cust.first_name),
+             'prodact': prodact,
+             'order_date': timezone.now().date(),
+             'number' : 1}
+    #cust1 = models.Customer.objects.get(user1=request.user)
     if request.method == "POST":
         form = OrderForm(request.POST, initial=inits)
         is_val = form.is_valid()
+        print('validation: {}'.format(is_val))
         if is_val:
             data = form.cleaned_data
+            if data['number']<=0:
+                form.add_error('number', ['Количество товара должно быть больше нуля.'])
+                is_val = False
+            #data['order_date'] = timezone.now().date()
+        if is_val:
+            #data = form.cleaned_data
             ord = models.Order()
             ord.user = cust
-            ord.prodact = models.Prodact.objects.get(name=data['prodact'])
-            ord.date = datetime.datetime.today()
-            #ord.number = models.Prodact.objects.get(name=data['prodact'])
+            ord.prodact = models.Prodact.objects.get(prodact_name=data['prodact'])
+            ord.order_date = data['order_date']
+            ord.number = int(data['number'])
             ord.save()
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/prodact_list')
     else:
         form = OrderForm(initial=inits)
 
-    return render(request, 'order.html', {'form': form, 'customer': cust})
+
+    return render(request, 'order_add.html', {'form': form, 'customer': cust})
 
 
 def prodact_add(request):

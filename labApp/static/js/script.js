@@ -17,7 +17,7 @@ $(document).ready(function(){
     $(".btn_modal_order").click(function() {
         console.log('жмяк btn_modal_order');
         //открыть модальное окно с id="modalOrder"
-        $("#modalOrdering").modal('show');
+        $("#modalOrder").modal('show');
         $("#id_user").val($('#customer_name').text());
         $("#id_prodact").val($('#prodact_name').text());
         $("#id_date").val(new Date()); /////////------!!!
@@ -34,7 +34,7 @@ $(document).ready(function(){
         console.log(csrf_value)
         $.ajax({
             type: "POST",
-            url: '/hw/ajax/order/', //!!!
+            url: '/ajax/order/', //!!!
             data: {
                 'prodact_name': $("#id_prodact").val(),
                 'user_email': $("#customer_email").text(),

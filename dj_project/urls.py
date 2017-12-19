@@ -21,11 +21,12 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 
 urlpatterns = [
+    url(r'^order_add/(?P<prodact>[^/]+)', order_add, name='order_add'),
     url(r'^$', home),
     url(r'^prodact/(?P<prodact>[^/]+)', prodact_page, name='prodact_page'),
-    #url(r'^prodact/$', ProdactsView.as_view(), name='prodacts_url'),
     url(r'^prodact_list/$', ProdactsView.as_view(), name='prodacts_list'),
-    url(r'^prodact_add/', prodact_add, name='prodact_add'),
+    url(r'^order_list/$', OrderView.as_view(), name='order_list'),
+    url(r'^prodact_add/$', prodact_add, name='prodact_add'),
     url(r'^registration_form/$', registration_form, name='registration_form'),
     url(r'^registration/$', registration, name='registration'),
     url(r'^authorization_form/$', authorization_form, name='authorization_form'),

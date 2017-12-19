@@ -60,3 +60,9 @@ class Order(models.Model):
     number = models.IntegerField(default=1, blank=False, verbose_name='Количеcтво')
 
     objects = models.Manager()
+
+    class Meta:
+        ordering = ('-order_date',)
+
+    def __str__(self):
+        return "{}: {} {}".format(self.user.user.username, self.order_date)
