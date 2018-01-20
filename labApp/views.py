@@ -141,7 +141,7 @@ def order_add(request, prodact):
 
 #  добавление товара
 def prodact_add(request):
-    cust = models.Customer.objects.get(user=request.user)
+    #cust = models.Customer.objects.get(user=request.user)
     if request.method == 'POST':
         form = ProdactAddForm(request.POST, request.FILES)
         is_val = form.is_valid()
@@ -159,7 +159,7 @@ def prodact_add(request):
     else:
         form = ProdactAddForm()
 
-    return render(request, 'prodact_add.html', {'form': form, 'customer': cust})
+    return render(request, 'prodact_add.html', {'form': form})
 
 # --------- регистрация и авторизация ------------
 

@@ -1,8 +1,201 @@
-.x-modal {z-index: 9999 !important;}
+/* форма */
+.well{
+    margin-top: 20px;
+}
 
+.mytext{
+    color: #a549cf;
+}
 
+.lead{
+    font-weight: 600;
+}
+
+/* ссылки */
+a {
+  color: #a549cf;
+  text-decoration: none;
+}
+a:hover,
+a:focus {
+  color: #803ba5;
+  text-decoration: none;
+}
+a:focus {
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+/* карусель */
+.carousel {
+    height: 30%;
+}
+
+.item,
+.active,
+.carousel-inner {
+    height: 100%;
+    margin: 0 auto;
+}
+/* картинка в карусели */
+.item > img {
+margin: 0 auto; !important;
+}
+/* текст в каруселе */
+#text-carousel{
+    color: #a549cf;
+    text-shadow: #fff -1px -1px 0,
+    #8522a7 1px 1px 0,
+                 #8522a7 1px 1px 0, #803ba5 -1px -1px 0,
+                 #803ba5 -1px 1px 0, #803ba5 1px -1px 0;
+    letter-spacing: 3px;
+}
+
+/* боковые банели в карусели */
+.carousel-control {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 15%;
+    font-size: 20px;
+    color: #803ba5;
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(165, 73, 207, 0.6);
+    background-color: rgba(0,0,0,0);
+    filter: alpha(opacity=50);
+    opacity: .5;
+}
+
+.carousel-control.right {
+    right: 0;
+    left: auto;
+    background-image: -webkit-linear-gradient(left,rgba(0,0,0,.0001) 0, rgba(205, 118, 255, 0.5) 100%);
+    background-image: -o-linear-gradient(left,rgba(0,0,0,.0001) 0, rgba(205, 118, 255, 0.5) 100%);
+    background-image: -webkit-gradient(linear,left top,right top,from(rgba(0,0,0,.0001)),to(rgba(205, 118, 255, 0.5)));
+    background-image: linear-gradient(to right,rgba(0,0,0,.0001) 0, rgb(205, 118, 255) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
+    background-repeat: repeat-x;
+}
+
+.carousel-control.left {
+    background-image: -webkit-linear-gradient(left, rgba(205, 118, 255, 0.5) 0,rgba(0,0,0,.0001) 100%);
+    background-image: -o-linear-gradient(left, rgba(205, 118, 255, 0.5) 0,rgba(0,0,0,.0001) 100%);
+    background-image: -webkit-gradient(linear,left top,right top,from(rgba(205, 118, 255, 0.57)),to(rgba(0,0,0,.0001)));
+    background-image: linear-gradient(to right, rgb(205, 118, 255) 0,rgba(0,0,0,.0001) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
+    background-repeat: repeat-x;
+}
+
+/* индикаторы в карусели */
+.carousel-indicators li {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 1px;
+    text-indent: -999px;
+    cursor: pointer;
+    background-color: #000\9;
+    background-color: rgb(165, 73, 207);
+    border: 1px solid #803ba5;
+    border-radius: 10px;
+}
+
+carousel-indicators.active li {
+    margin: 0;
+    width:  12px;
+    height: 12px;
+    background-color: #8522a7;
+  }
+
+/* кнопка добавить */
+#add{
+    color: #ff8b78 !important;
+}
+#add:focus,
+#add:hover{
+    color: #ee826f !important;
+    background-color: transparent;
+}
+
+/* пользователь */
+#user{
+    color: #8d87ff !important;
+}
+
+/* кпопки */
+.btn-primary {
+  color: #803ba5;
+  background-color: transparent;
+  border-color: #8522a7;
+}
+.btn-primary:focus,
+.btn-primary.focus {
+  color: #fff;
+  background-color: #a549cf;
+  border-color: #8522a7;
+}
+.btn-primary:hover {
+  color: #fff;
+  background-color: #a549cf;
+  border-color: #8522a7;
+}
+.btn-primary:active,
+.btn-primary.active,
+.open > .dropdown-toggle.btn-primary {
+  color: #fff;
+  background-color: #803ba5;
+  border-color: #8522a7;
+}
+.btn-primary:active:hover,
+.btn-primary.active:hover,
+.open > .dropdown-toggle.btn-primary:hover,
+.btn-primary:active:focus,
+.btn-primary.active:focus,
+.open > .dropdown-toggle.btn-primary:focus,
+.btn-primary:active.focus,
+.btn-primary.active.focus,
+.open > .dropdown-toggle.btn-primary.focus {
+  color: #fff;
+  background-color: #a549cf;
+  border-color: #8522a7;
+}
+.btn-primary:active,
+.btn-primary.active,
+.open > .dropdown-toggle.btn-primary {
+  background-image: none;
+}
+.btn-primary.disabled:hover,
+.btn-primary[disabled]:hover,
+fieldset[disabled] .btn-primary:hover,
+.btn-primary.disabled:focus,
+.btn-primary[disabled]:focus,
+fieldset[disabled] .btn-primary:focus,
+.btn-primary.disabled.focus,
+.btn-primary[disabled].focus,
+fieldset[disabled] .btn-primary.focus {
+  background-color: #a549cf;
+  border-color: #a549cf;
+}
+.btn-primary .badge {
+  color: #a549cf;
+  background-color: #fff;
+}
+
+/* навигация */
+.navbar-default .navbar-nav>li>a {
+    color: #cd76ff !important;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #a549cf !important;
+  background-color: transparent;
+}
+
+/* сайбар */
 .sidebar {
   display: none;
+    background-color: #f8f8f8;
 }
 @media (min-width: 768px) {
   .sidebar {
@@ -53,6 +246,7 @@ body {
 
 .thumbnail {
     padding: 0;
+    margin-top: 10px;
 }
 
 .thumbnail .caption-full {
@@ -60,19 +254,19 @@ body {
     color: #333;
 }
 
-.carousel {
-    height: 30%;
+.description-tip {
+    position: fixed;
+    padding: 2px 20px;
+    z-index: 5;
+    border: 1px solid #ff8b78;
+    border-radius: 4px;
+    text-align: center;
+    color: #333;
+    background: #fff;
+    box-shadow: 1px 2px 2px rgba(0, 0, 0, .3);
 }
 
-.item,
-.active,
-.carousel-inner {
-    height: 100%;
-}
-
-/* Background images are set within the HTML using inline CSS, not here */
-
-.fill {
+/*.fill {
     width: 100%;
     height: 100%;
     background-position: center;
@@ -80,7 +274,8 @@ body {
     -moz-background-size: cover;
     background-size: cover;
     -o-background-size: cover;
-}
+    margin: 0 auto;
+}*/
 
 .portfolio-item {
     margin-bottom: 25px;

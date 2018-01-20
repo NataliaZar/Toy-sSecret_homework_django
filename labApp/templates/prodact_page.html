@@ -7,11 +7,12 @@
 {% csrf_token %}
 
 <div class="container">
-
+    <div id="customer_username" style="display: none">{{ customer.user.username }}</div>
+    <div id="customer_name" style="display: none">{{ customer.last_name }} {{ customer.first_name }}</div>
     <div class="row">
         <div class="col-md-3">
             {% if category is not None %}
-                <div style=""><h4>Категории:</h4></div>
+                <div class="mytext"><h4>Категории:</h4></div>
                 <div class="list-group">
                 {% for cat in category %}
                     <li class="list-group-item">
@@ -24,23 +25,30 @@
         </div>
 
         <div class="col-md-9">
-        <div class="thumbnail">
-            <p class="lead " id="prodact_name">{{ prodact.prodact_name }}</p>
+        <div class="well thumbnail">
+            <p class="mytext lead" id="prodact_name">{{ prodact.prodact_name }}</p>
             {% load static  %}
             <img class="img-responsive" src="{{ prodact.img.url }}" style="max-width: 300px" >
             <div class="caption-full">
                 <p> {{ prodact.description }}</p>
                 <h4 class="pull-right">Цена за единицу: <div id="price" >{{ prodact.price }} руб.</div></h4>
 
-
-                <h4 id="last_order_header" hidden="True">Ваши последние заказы:</h4>
+                <br>
+                <br>
+                <br>
+                <h4 class="mytext" id="last_order_header" hidden="True">Ваши последние заказы:</h4>
                 <table class="table" id="last_order" onload="load_last_order()"></table>
                 <div id="prod_id" style="display: none"> {{ prodact.id }}</div>
             </div>
         </div>
 
             <div class="well">
-            <div class="text-right"><a class="btn btn-primary btn_modal_order" style="margin-top: 10px;">Заказать</a></div>
+            <div class="text-right">
+                <a class="btn btn-primary btn_modal_order" style="margin-top: 10px;">
+                    Заказать
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+            </div>
             </div>
             <!-- HTML-код модального окна -->
             <div id="modalOrder" class="modal fade">
@@ -68,7 +76,7 @@
                         </div>
                         <!-- Футер модального окна -->
                         <div class="modal-footer">
-                            <button id="btn_close" type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                            <button id="btn_close" type="button" class="pull-left btn btn-primary" data-dismiss="modal">Закрыть</button>
                             <button id="btn_order"  type="button" class="btn btn-primary">Заказать</button>
                         </div>
                     </div>

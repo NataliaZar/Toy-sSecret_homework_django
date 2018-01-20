@@ -121,12 +121,6 @@ $(document).ready(function(){
         console.log('ajax finish')
     })
 
-    $("#myAffix").affix({
-    offset: {
-      top: 100,
-      bottom: 100,
-    }
-  });
 });
 
 //валидация на стороне js
@@ -152,6 +146,7 @@ function productDescriptionValidate(event) {
 
     descriptionTip.style.left = left + 'px';
     descriptionTip.style.top = top + 'px';
+
 
     if (descriptionArea.value.length < 15 && (showingDescriptionTip === false)) {
         document.body.appendChild(descriptionTip);
@@ -183,6 +178,7 @@ function removeDescriptionTipOnBlur() {
     }
 }
 
+//карусель
 $('.carousel').carousel({
     interval: 4000 //changes the speed
 })
