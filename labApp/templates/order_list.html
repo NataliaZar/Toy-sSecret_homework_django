@@ -1,39 +1,80 @@
 {% extends "base.html" %}
 {% block title %}Заказы{% endblock %}
 {% block content %}
-<h2>Ваши заказы</h2>
-{% for order in order_list %}
-    <div class="main-panel-elem">
+
+    <div class="container-fluid">
+
         <div class="row">
-            <div class="col-md-2">
-                {% load static  %}
-                <img style="width:100px; height:100px;" src="{{ order.prodact.img.url }}">
+            <!-- Page Heading -->
+            <div class="sidebar col-sm-3 col-md-2  ">
+                 {% include "customer.html" %}
             </div>
-            <div class="col-md-10">
-                <h3><a href="{% url 'prodact_page' order.prodact.prodact_name %}">{{ order.prodact.prodact_name }}</a></h3>
-                <div>Количество: {{ order.number }}</div>
-                <div>{{ order.order_date }}</div>
+
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <div class="row">
+                    <div class="col-md-11 col-md-offset-1">
+                        <h1 class="page-header">Заказы
+                        </h1>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+                <!-- Project One -->
+                <div class="row">
+                    {% for order in order_list %}
+
+                        <div class="col-md-offset-1 col-md-4">
+                            <a href="{% url 'prodact_page' order.prodact.id %}">
+                                {% load static  %}
+                                <img class="img-responsive" style="width:130px; height:130px;" src="{{ order.prodact.img.url }}">
+                            </a>
+                            <h5>ID заказа: {{ order.id }}</h5>
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <h3><a href="{% url 'prodact_page' order.prodact.id %}">{{ order.prodact.prodact_name }}</a></h3>
+                            <p>{{ order.order_date }}</p>
+                            <p>Количество: {{ order.number }}</p>
+                            <p>Сумма заказа: {{ order.order_price }}</p>
+
+
+                            <a class="btn btn-primary" href="{% url 'order_add' order.prodact.id %}" role="button">
+                                Заказать
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+                            <hr>
+                        </div>
+
+                    {% empty %}
+                        <div class="main-panel-elem">
+                            На данный момент у вас нет заказов.
+                        </div>
+                    {% endfor %}
+
+                </div>
+                <!-- /.row -->
+
+                <hr>
+
+             <!--paginator-->
+    <div class="col-md-offset-5">
+        {% if paginator.num_pages > 1 %}
+            {% if page_obj.has_previous %}
+                <a href="{% url 'order_list_page' page_obj.previous_page_number %}">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+            {% endif %}
+            {% if page_obj.has_next %}
+                <a href="{% url 'order_list_page' page_obj.next_page_number %}">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+            {% endif %}
+        {% endif %}
+    </div>
             </div>
         </div>
     </div>
-{% empty %}
-<div class="main-panel-elem">
-    На данный момент у вас нет заказов.
-</div>
-{% endfor %}
-<!--paginator-->
-{% endblock %}
 
-{% block side_block %}
-    <h2>Пользователь:</h2>
-    {% if isAuth %}
-        <div class="side-panel-elem">
-            {% include "customer.html" %}
-        </div>
-    {%  else %}
-        <p>Вы не авторизованы или не зарегистрированы.</p>
-    {% endif %}
-    <!--<div class="side-panel-elem">-->
-    <div><a class="btn btn-primary" href="{% url 'prodact_list' %}" role="button">Заказать товар</a></div>
-    <!--</div>-->
+
 {% endblock %}

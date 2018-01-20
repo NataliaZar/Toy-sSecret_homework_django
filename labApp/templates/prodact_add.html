@@ -2,32 +2,39 @@
 {% block title %} Добавление товара {{ prodact.price }}{% endblock %}
 
 {% block content %}
-<div class="main_block_elem">
-<form method="POST" class="form-horizontal main-panel-elem" enctype="multipart/form-data" >
-    <h2 style="text-align:center">Добавление товара</h2>
-    {% csrf_token %}
-    {% for field in form %}
-        {% for error in field.errors %}
-            <div class="alert alert-danger" role="alert"> {{ error }}</div>
+<div class="container form-container">
+<div class="row">
+<div class="col-xs-4 col-sm-4 col-md-6 col-md-offset-3 well well-sm">
+    <form method="POST" class="form-horizontal main-panel-elem" enctype="multipart/form-data" >
+        <h3 class="form-signin-heading form-heading-align col-md-offset-4">Добавление товара</h3>
+        {% csrf_token %}
+        {% for field in form %}
+            {% for error in field.errors %}
+                <div class="alert alert-danger" role="alert"> {{ error }}</div>
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
-    {% for field in form %}
-    <div class="form-group">
-        <label for="{{ field.id_for_label }}" class="col-sm-3 control-label">{{ field.label }}:</label>
-        <div class="col-sm-9">
-            {{ field }}
+
+        {% for field in form %}
+            <div class="form-group">
+                <div class="col-md-10 col-md-offset-1">
+                    {{ field }}
+                </div>
+            </div>
+        {% endfor %}
+
+        <div>
+            <div class="pull-right">
+                <button type="submit" class="btn btn-primary" onclick="validateDescriptionAfterSubmit(event)">
+                    Добавить
+                </button>
+            </div>
         </div>
-    </div>
-    {% endfor %}
-    <div class="form-group">
-        <div class="col-sm-offset-3 col-sm-9">
-            <button type="submit" class="btn btn-primary">Добавить</button>
-        </div>
-    </div>
-</form>
+    </form>
+</div>
+</div>
 </div>
 {% endblock %}
 
 {% block side_block %}
-<h3></h3>
+
 {% endblock %}

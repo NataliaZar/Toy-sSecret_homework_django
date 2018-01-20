@@ -14,12 +14,12 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterField(
             model_name='customer',
-            name='img',
+            name='images',
             field=models.ImageField(blank=True, default='user/user_icon.png', upload_to='user/', verbose_name='Фотография'),
         ),
         migrations.AlterField(
             model_name='prodact',
-            name='img',
+            name='images',
             field=models.ImageField(blank=True, default='prodact/prodact_icon.png', upload_to='prodact/', verbose_name='Фотография'),
         ),
     ]

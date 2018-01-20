@@ -1,3 +1,18 @@
-<h3 id="customer_name">{{ customer.last_name }} {{ customer.first_name }}</h3>
-<div id="customer_email">{{ customer.user.email }}</div>
-<img src="{{customer.img.url}}" style="max-width: 100px;">
+<!--<div id="myAffix" class="list-group" style="width:150px;">-->
+{% if user.is_authenticated %}
+
+    <h4>Вы:</h4>
+
+        <img class="img-responsive" src="{{customer.img.url}}" style="max-width: 150px;">
+        <div id="customer_name">{{ customer.last_name }} {{ customer.first_name }}</div>
+        <div id="customer_email">{{ customer.user.email }}</div>
+        <div id="customer_username" style="display: none">{{ customer.user.username }}</div>
+
+{%  else %}
+    <div class="col-md-6">
+        <p>Вы не авторизованы или не зарегистрированы.</p>
+        <a href="{% url 'authorization' %}">Войти</a>
+        <a href="{% url 'registration' %}">Зарегистрироваться</a>
+    </div>
+{% endif %}
+

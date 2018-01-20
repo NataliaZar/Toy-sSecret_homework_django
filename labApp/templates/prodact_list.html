@@ -3,44 +3,63 @@
 {% block title %}Товары{% endblock %}
 
 {% block content %}
-    <div class="jumbotron">
-        <div class="container">
-            <div class="page-header">
-                <h1>Товары</h1>
+
+    <div class="container">
+
+        <!-- Page Header -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Игрушки</h1>
             </div>
-            <ul class="list-group">
-                {% for prodact in prodacts_list %}
-                    <li>
-                        <div>
-                            {% load static  %}
-                            <img src="{{ prodact.img.url }}" style="max-width: 100px;">
-                        </div>
-                        <div>
-                            <h4><a href= "{% url 'prodact_page'  prodact.prodact_name %}"> {{ prodact.prodact_name }}</a></h4>
-                        </div>
-                        <div>
-                            {% load static  %}
-                            <a class="btn btn-primary" href="{% url 'order_add' prodact.prodact_name %}" role="button">Заказать</a>
-                        </div>
-                    </li>
-                {% empty %}
-                    <li>пустой список</li>
-                {% endfor %}
-            </ul>
         </div>
+        <!-- /.row -->
 
-        <div>
+        <!-- Projects Row -->
 
+		<div id='products-container' class="container list-products infinite-container">
+			<div class="row">
+
+
+                {% for prodact in prodacts_list %}
+                    <div class="col-md-4 portfolio-item">
+                        {% load static  %}
+                        <a href="{% url 'prodact_page'  prodact.id %}">
+                            <img class="img-responsive" src="{{ prodact.img.url }}" alt="" width="160" height="160">
+                        </a>
+                        <h3>
+                            <a href="{% url 'prodact_page'  prodact.id %}">{{ prodact.prodact_name }}</a>
+                        </h3>
+                        <h3>
+                            <a class="btn btn-primary" href="{% url 'order_add' prodact.id %}" role="button">
+                                Заказать
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+                        </h3>
+
+                    </div>
+                {% empty %}
+                    <li>Список товаров пуст</li>
+                {% endfor %}
+            </div>
+		</div>
+        <!-- /.row -->
+
+
+        <div class="col-md-offset-5">
+            {% if paginator.num_pages > 1 %}
+            {% if page_obj.has_previous %}
+                <a href="{% url 'prodact_list_page' page_obj.previous_page_number %}">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+            {% endif %}
+            {% if page_obj.has_next %}
+                <a href="{% url 'prodact_list_page' page_obj.next_page_number %}">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+            {% endif %}
+            {% endif %}
         </div>
     </div>
 {% endblock %}
-{% block side_block %}
-    <h2>Пользователь:</h2>
-    {% if isAuth %}
-        <div class="side-panel-elem">
-            {% include "customer.html" %}
-        </div>
-    {%  else %}
-        <p>Вы не авторизованы или не зарегистрированы.</p>
-    {% endif %}
-{% endblock %}
+
+

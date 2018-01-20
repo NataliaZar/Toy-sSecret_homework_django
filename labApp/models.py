@@ -23,7 +23,6 @@ class Customer(models.Model):
         return "{}".format(self.user.username)
 
 
-
 class ProdactCategory(models.Model):
     category_name = models.CharField(max_length=30, verbose_name='Категория товара')
 
@@ -32,10 +31,12 @@ class ProdactCategory(models.Model):
     def __str__(self):
         return "{}".format(self.category_name)
 
+
 class ProdactManager(models.Manager):
 
     def get_all_trans(self, user_id):
         return Prodact.objects.filter(user=user_id)
+
 
 class Prodact(models.Model):
     prodact_name = models.CharField(max_length=30, verbose_name='Наименование товара')
@@ -51,13 +52,12 @@ class Prodact(models.Model):
         return "{} {}".format(self.prodact_name, self.description)
 
 
-
-
 class Order(models.Model):
     user = models.ForeignKey(Customer, on_delete=models.CASCADE, verbose_name='Покупатель')
     prodact = models.ForeignKey(Prodact, on_delete=models.CASCADE, verbose_name='Продукт')
     order_date = models.DateField(default=now, blank=False, verbose_name='Дата заказа')
     number = models.IntegerField(default=1, blank=False, verbose_name='Количеcтво')
+    order_price = models.FloatField(default=0, blank=False, verbose_name='Стоимость заказа')
 
     objects = models.Manager()
 
@@ -65,4 +65,4 @@ class Order(models.Model):
         ordering = ('-order_date',)
 
     def __str__(self):
-        return "{}: {} {}".format(self.user.user.username, self.order_date)
+        return "{}: {}".format(self.user.user.username, self.order_date)

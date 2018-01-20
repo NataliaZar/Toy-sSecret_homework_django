@@ -3,9 +3,11 @@
 {% block title %}authorization{% endblock %}
 
 {% block content %}
-<div class="main_block_elem">
+<div class="container form-container">
+<div class="row">
+<div class="col-xs-4 col-sm-4 col-md-6 col-md-offset-3 well well-sm">
 <form method="POST" class="form-horizontal">
-    <h3 style="text-align:center">Авторизация пользователя</h3>
+    <h3 class="form-signin-heading form-heading-align col-md-offset-5">Авторизация</h3>
     {% csrf_token %}
     {% for field in form %}
         {% for error in field.errors %}
@@ -14,18 +16,21 @@
     {% endfor %}
 
     {% for field in form %}
-    <div class="form-group">
-        <label for="{{ field.id_for_label }}" class="col-sm-3 control-label">{{ field.label }}:</label>
-        <div class="col-sm-9">
-            {{ field }}
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-1">
+                {{ field }}
+            </div>
         </div>
-    </div>
     {% endfor %}
-    <div class="form-group">
-        <div class="col-sm-offset-3 col-sm-9">
-            <button type="submit" class="btn btn-primary">Войти</button>
+    <div>
+        <div class="pull-right">
+            <button type="submit" class="btn btn-primary">
+                Войти
+            </button>
         </div>
     </div>
 </form>
+</div>
+</div>
 </div>
 {% endblock %}

@@ -25,20 +25,22 @@ urlpatterns = [
     url(r'^$', home),
     url(r'^prodact/(?P<prodact>[^/]+)', prodact_page, name='prodact_page'),
     url(r'^prodact_list/$', ProdactsView.as_view(), name='prodacts_list'),
+    url(r'^prodact_list/(?P<page>\d+)$', ProdactsView.as_view(), name='prodact_list_page'),
     url(r'^order_list/$', OrderView.as_view(), name='order_list'),
+    url(r'^order_list/(?P<page>\d+)$', OrderView.as_view(), name='order_list_page'),
     url(r'^prodact_add/$', prodact_add, name='prodact_add'),
     url(r'^registration_form/$', registration_form, name='registration_form'),
     url(r'^registration/$', registration, name='registration'),
     url(r'^authorization_form/$', authorization_form, name='authorization_form'),
     url(r'^authorization/$', authorization, name='authorization'),
-    url(r'^logout$', logout_view, name='logout'),
+    url(r'^logout/$', logout_view, name='logout'),
     url(r'^success_authorization_form$', success_authorization_form, name='success_authorization_form'),
     url(r'^success_authorization$', success_authorization, name='success_authorization'),
     url(r'^admin/', include(admin.site.urls))
 ]
 ajax_functions = [
     url(r'^ajax/order/', ajax_order, name='ajax_order'),
-    #url(r'^ajax/last_bookings/', ajax_last_bookings, name='ajax_last_bookings'),
+    url(r'^ajax/last_order/', ajax_last_order, name='ajax_last_order'),
 ]
 urlpatterns += ajax_functions
 urlpatterns += staticfiles_urlpatterns()

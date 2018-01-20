@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="main_block_elem">
+<div class="container form-container">
+<div class="row">
+<div class="col-xs-4 col-sm-4 col-md-6 col-md-offset-3 well well-sm">
     <form method="POST" class="form-horizontal main-panel-elem">
-        <h2 style="text-align:center">Заказ товара</h2>
+        <h3 class="form-signin-heading form-heading-align">Заказ товара</h3>
         {% csrf_token %}
         {% for field in form %}
             {% for error in field.errors %}
@@ -13,25 +15,20 @@
 
         {% for field in form %}
         <div class="form-group">
-            <label for="{{ field.id_for_label }}" class="col-sm-3 control-label">{{ field.label }}:</label>
-            <div class="col-sm-9">
+            <label for="{{ field.id_for_label }}" class="col-sm-4 control-label">{{ field.label }}:</label>
+            <div class="col-sm-6">
                 {{ field }}
             </div>
         </div>
         {% endfor %}
-        <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-9">
+        <div>
+            <div class="pull-right">
                 <button type="submit" class="btn btn-primary">Заказать</button>
             </div>
         </div>
     </form>
 </div>
+</div>
+</div>
 {% endblock %}
 
-{% block side_block %}
-    <h2>Пользователь:</h2>
-        <div class="side-panel-elem">
-            {% include "customer.html" %}
-        </div>
-
-{% endblock %}
