@@ -18,10 +18,8 @@
 
 		<div id='products-container' class="container list-products infinite-container">
 			<div class="row">
-
-
                 {% for prodact in prodacts_list %}
-                    <div class="col-md-4 portfolio-item">
+                    <div class="col-md-offset-1 col-md-5 portfolio-item">
                         {% load static  %}
                         <a href="{% url 'prodact_page'  prodact.id %}">
                             <img class="img-responsive" src="{{ prodact.img.url }}" alt="" width="160" height="160">
